@@ -54,6 +54,6 @@ print(computeCost(x, y, xtheta))
 xtheta=np.array([[-1,2]])
 print(computeCost(x, y, xtheta))
 
-theta = gradientDescent(x, y, xtheta, 1, 11)
+theta = gradientDescent(x, y, xtheta, .01, 1500)
 print(theta)
 
