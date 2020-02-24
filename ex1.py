@@ -7,6 +7,7 @@ Created on Sat Dec 14 21:46:44 2019
 
 import numpy as np
 from pylab import *
+import matplotlib.pyplot as plt
 
 def computeCost(X, y, theta):
     o1 = ones(x.size)
@@ -20,10 +21,9 @@ def computeCost(X, y, theta):
 def gradientDescent(X, y, theta, alpha, iters):
     # step 0: m = length(y)
     m = size(y)
-    print(m)
     # step 0: J_history = zeros(num_iters, 1)
     J_history = zeros(iters)
-    print(J_history)
+    #print(J_history)
     
     o1 = ones(x.size)
     X = np.vstack((o1, x))
@@ -40,20 +40,27 @@ def gradientDescent(X, y, theta, alpha, iters):
         theta = theta - (scale1*(alpha / m))
         J_history[i] = computeCost(X, y, theta)
     return theta
+
+def predict(x, slope, intercept):
+    return slope * x + intercept
+
     
 d = np.loadtxt("ex1data1.txt", delimiter=",")
 x=d[:,0]
 y=d[:,1]
 
-scatter(x,y, c='red', marker='x')
-xlabel("Population of city in 10,000s")
-ylabel("Profit in $10,000s")
 
 xtheta=np.array([[0,0]])
 print(computeCost(x, y, xtheta))
 xtheta=np.array([[-1,2]])
 print(computeCost(x, y, xtheta))
 
-theta = gradientDescent(x, y, xtheta, .01, 1500)
+theta = gradientDescent(x, y, xtheta, 0.01, 1500)
 print(theta)
+
+fitline = predict(x, theta[0][1], theta[0][0])
+plt,scatter(x,y, c='red', marker='x')
+plt.plot(x, fitline, c = 'b')
+xlabel("Population of city in 10,000s")
+ylabel("Profit in $10,000s")
 
